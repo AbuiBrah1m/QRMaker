@@ -1,0 +1,13 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-electron
+release
+
+# Misc
+*.log
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
