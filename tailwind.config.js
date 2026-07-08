@@ -1,11 +1,8 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   darkMode: 'class',
   theme: {
     extend: {
-      // All colors are driven by CSS variables (see src/index.css) so that the
-      // light/dark themes and accent colors can be swapped at runtime.
       fontFamily: {
         sans: ['Inter', 'system-ui', 'Segoe UI', 'sans-serif'],
       },
