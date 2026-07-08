@@ -9,7 +9,6 @@ interface ExportOptions {
   transparent: boolean
 }
 
-/** Converts a Blob to a bare base64 string (no data-url prefix). */
 function blobToBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader()
@@ -22,17 +21,10 @@ function blobToBase64(blob: Blob): Promise<string> {
   })
 }
 
-/**
- * Owns a single `QRCodeStyling` instance for the live canvas preview and
- * exposes helpers to mount it and to export a fresh high-resolution copy.
- */
 export function useQrCode(cfg: QrConfig) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const qrRef = useRef<QRCodeStyling | null>(null)
 
-  // Create the instance once and mount it into the preview container. The
-  // canvas is owned by qr-code-styling (not React), so we clean the container
-  // up on unmount to avoid duplicate canvases and DOM-ownership conflicts.
   useEffect(() => {
     const container = containerRef.current
     const qr = new QRCodeStyling({
@@ -48,21 +40,13 @@ export function useQrCode(cfg: QrConfig) {
       if (container) container.innerHTML = ''
       qrRef.current = null
     }
-    // Only run on mount; updates are handled by the effect below.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Re-render the preview whenever the config changes.
   useEffect(() => {
     qrRef.current?.update({ ...buildQrOptions(cfg), type: 'canvas' })
   }, [cfg])
 
-  /**
-   * Renders a brand-new instance at the requested export size/format and hands
-   * the bytes to the main process to be written to disk via a save dialog.
-   */
   async function exportQr(format: ExportFormat, options: ExportOptions) {
-    // JPG has no alpha channel, so transparency is forced off for it.
     const transparent = format === 'jpeg' ? false : options.transparent
     const opts = buildQrOptions({
       ...cfg,
