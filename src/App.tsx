@@ -31,9 +31,6 @@ export default function App() {
 
   const valid = isValidUrl(rawUrl)
 
-  // Whenever the raw logo or its chosen shape changes, redraw the logo onto a
-  // padded white tile clipped to the shape (square/rounded/circle). This shaped
-  // version is what actually gets embedded in the QR.
   const [processedLogo, setProcessedLogo] = useState<string | null>(null)
   useEffect(() => {
     let cancelled = false
@@ -53,9 +50,6 @@ export default function App() {
     }
   }, [cfg.logo, cfg.logoShape])
 
-  // The config that actually drives the QR: only encode a normalized URL once
-  // it is valid, otherwise fall back to the placeholder sample. The shaped logo
-  // (processedLogo) is substituted in for the raw upload.
   const effectiveCfg = useMemo<QrConfig>(
     () => ({
       ...cfg,
