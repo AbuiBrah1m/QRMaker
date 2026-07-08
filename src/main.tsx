@@ -1,6 +1,5 @@
 import ReactDOM from 'react-dom/client'
 
-// Bundle the Inter font locally through @fontsource (no external CDN calls).
 import '@fontsource/inter/300.css'
 import '@fontsource/inter/400.css'
 import '@fontsource/inter/500.css'
@@ -12,12 +11,6 @@ import App from './App'
 import { ThemeProvider } from './theme/ThemeProvider'
 import { ToastProvider } from './hooks/useToast'
 
-/**
- * Shows a readable error overlay instead of leaving a silent black screen if
- * the renderer throws during startup. It appends a separate overlay element to
- * <body> (rather than overwriting #root) so it never disturbs React's DOM and
- * can never mask the true first error with a follow-on removeChild cascade.
- */
 let fatalShown = false
 function showFatal(message: string) {
   if (fatalShown) return
@@ -44,9 +37,6 @@ try {
   const container = document.getElementById('root')
   if (!container) throw new Error('Root element #root was not found.')
 
-  // Note: React.StrictMode is intentionally omitted. Its dev-only double
-  // mount/unmount conflicts with framer-motion's AnimatePresence exit handling
-  // ("Failed to execute 'removeChild' on 'Node'"). Production is unaffected.
   ReactDOM.createRoot(container).render(
     <ThemeProvider>
       <ToastProvider>
