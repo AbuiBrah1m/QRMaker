@@ -15,7 +15,6 @@ const FORMATS: { id: ExportFormat; label: string }[] = [
   { id: 'jpeg', label: 'JPG' },
 ]
 
-/** Resolution + transparency controls and the three export buttons. */
 export function ExportPanel({ cfg, onChange, onExport }: ExportPanelProps) {
   return (
     <div className="flex flex-col gap-4">
