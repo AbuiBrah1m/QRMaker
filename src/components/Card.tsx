@@ -8,7 +8,6 @@ interface CardProps {
   delay?: number
 }
 
-/** A frosted-glass panel with a spring entrance animation. */
 export function Card({ title, children, className = '', delay = 0 }: CardProps) {
   return (
     <motion.section
