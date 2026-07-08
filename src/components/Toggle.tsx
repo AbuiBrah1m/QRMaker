@@ -7,7 +7,6 @@ interface ToggleProps {
   hint?: string
 }
 
-/** Accessible animated on/off switch. */
 export function Toggle({ checked, onChange, label, hint }: ToggleProps) {
   return (
     <label className="no-drag flex cursor-pointer items-center justify-between gap-3">
