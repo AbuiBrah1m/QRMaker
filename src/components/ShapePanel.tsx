@@ -7,7 +7,6 @@ interface ShapePanelProps {
   onChange: (patch: Partial<QrConfig>) => void
 }
 
-/** Module-shape and eye-style selectors. */
 export function ShapePanel({ cfg, onChange }: ShapePanelProps) {
   return (
     <div className="flex flex-col gap-4">
