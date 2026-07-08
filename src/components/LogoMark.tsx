@@ -1,6 +1,4 @@
-/** The QR Studio brand mark, rendered as an inline gradient SVG. */
 export function LogoMark({ size = 32 }: { size?: number }) {
-  // A gradient id unique enough to avoid collisions when rendered twice.
   const gid = 'qrs-grad'
   return (
     <svg width={ size } height={ size } viewBox="0 0 48 48" fill="none">
