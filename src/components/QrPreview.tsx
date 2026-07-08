@@ -2,15 +2,9 @@ import { motion, useAnimationControls } from 'framer-motion'
 import { forwardRef, useEffect } from 'react'
 
 interface QrPreviewProps {
-  /** Serialized config; changes trigger a subtle crossfade pulse. */
   signature: string
 }
 
-/**
- * Displays the live QR canvas. The `qr-code-styling` instance mutates the
- * canvas in place (via the forwarded container ref), so instead of remounting
- * we play a short Framer Motion crossfade whenever the signature changes.
- */
 export const QrPreview = forwardRef<HTMLDivElement, QrPreviewProps>(
   function QrPreview({ signature }, ref) {
     const controls = useAnimationControls()
