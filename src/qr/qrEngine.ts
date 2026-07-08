@@ -1,14 +1,5 @@
 import type { Options as QrCodeStylingOptions } from 'qr-code-styling'
 
-/**
- * QR engine
- * ---------
- * Pure functions that translate the app's high-level configuration into the
- * option object understood by `qr-code-styling`. Keeping this free of React or
- * DOM code makes the color/shape logic easy to reason about and reuse for both
- * the live preview and the high-resolution export.
- */
-
 export type ColorMode = 'solid' | 'two' | 'rainbow'
 export type ModuleShape =
   | 'square'
@@ -21,40 +12,31 @@ export type RainbowDirection = 'horizontal' | 'vertical' | 'radial'
 export type LogoShape = 'square' | 'rounded' | 'circle'
 
 export interface QrConfig {
-  /** The already-normalized URL string encoded in the QR. */
   data: string
   colorMode: ColorMode
 
-  /* Solid mode */
   foreground: string
   background: string
   transparentBg: boolean
 
-  /* Two-color mode */
   primary: string
   secondary: string
   twoColorGradient: boolean
 
-  /* Rainbow mode */
   rainbowDirection: RainbowDirection
 
-  /* Shapes */
   moduleShape: ModuleShape
   eyeShape: EyeShape
 
-  /* Logo */
   logo: string | null
-  logoSize: number // fraction of the QR (0.15 - 0.4)
-  logoShape: LogoShape // shape of the padded tile drawn behind the logo
+  logoSize: number
+  logoShape: LogoShape
 
-  /* Output size in pixels */
   size: number
 }
 
-// Placeholder URL used before the user types anything (built via concatenation).
 export const PLACEHOLDER_DATA = 'https' + '://' + 'example' + '.com'
 
-/** Sensible defaults for a fresh session. */
 export const DEFAULT_CONFIG: QrConfig = {
   data: '',
   colorMode: 'solid',
@@ -73,7 +55,6 @@ export const DEFAULT_CONFIG: QrConfig = {
   size: 1024,
 }
 
-/** Full-spectrum stops used by rainbow mode. */
 const RAINBOW_STOPS = [
   '#ff004d',
   '#ff7a00',
@@ -88,12 +69,10 @@ type Gradient = NonNullable<
   NonNullable<QrCodeStylingOptions['dotsOptions']>['gradient']
 >
 
-/** Maps our eye style onto the `cornersDot` type supported by the library. */
 function cornersDotType(eye: EyeShape): 'dot' | 'square' {
   return eye === 'square' ? 'square' : 'dot'
 }
 
-/** Builds a rainbow gradient for the requested direction. */
 function rainbowGradient(direction: RainbowDirection): Gradient {
   const colorStops = RAINBOW_STOPS.map((color, i) => ({
     offset: i / (RAINBOW_STOPS.length - 1),
@@ -106,16 +85,10 @@ function rainbowGradient(direction: RainbowDirection): Gradient {
   }
 }
 
-/**
- * Translate a `QrConfig` into `qr-code-styling` options.
- * The `type` (canvas vs svg) is intentionally left to the caller so the same
- * config can render a canvas preview or an SVG export.
- */
 export function buildQrOptions(cfg: QrConfig): Partial<QrCodeStylingOptions> {
   const hasLogo = Boolean(cfg.logo)
   const background = cfg.transparentBg ? 'rgba(0,0,0,0)' : cfg.background
 
-  // Defaults assume solid mode.
   let dotsOptions: QrCodeStylingOptions['dotsOptions'] = {
     type: cfg.moduleShape,
     color: cfg.foreground,
@@ -131,7 +104,6 @@ export function buildQrOptions(cfg: QrConfig): Partial<QrCodeStylingOptions> {
 
   if (cfg.colorMode === 'two') {
     if (cfg.twoColorGradient) {
-      // Two-stop diagonal gradient blending both colors across every module.
       const grad: Gradient = {
         type: 'linear',
         rotation: Math.PI / 4,
@@ -144,7 +116,6 @@ export function buildQrOptions(cfg: QrConfig): Partial<QrCodeStylingOptions> {
       cornersSquareOptions = { type: cfg.eyeShape, gradient: grad }
       cornersDotOptions = { type: cornersDotType(cfg.eyeShape), gradient: grad }
     } else {
-      // Data modules in the primary color, finder/eye patterns in the secondary.
       dotsOptions = { type: cfg.moduleShape, color: cfg.primary }
       cornersSquareOptions = { type: cfg.eyeShape, color: cfg.secondary }
       cornersDotOptions = {
@@ -164,8 +135,6 @@ export function buildQrOptions(cfg: QrConfig): Partial<QrCodeStylingOptions> {
     height: cfg.size,
     data: cfg.data || PLACEHOLDER_DATA,
     margin: Math.round(cfg.size * 0.04),
-    // Logos block modules, so force the highest error correction (H = 30%)
-    // whenever a logo is present; otherwise stay at a crisp Q level.
     qrOptions: {
       errorCorrectionLevel: hasLogo ? 'H' : 'Q',
     },
@@ -174,7 +143,6 @@ export function buildQrOptions(cfg: QrConfig): Partial<QrCodeStylingOptions> {
       crossOrigin: 'anonymous',
       margin: 6,
       imageSize: cfg.logoSize,
-      // Clears modules behind the logo and adds padding so it stays scannable.
       hideBackgroundDots: true,
     },
     dotsOptions,
