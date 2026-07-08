@@ -13,10 +13,6 @@ interface SegmentedProps {
   idKey?: string
 }
 
-/**
- * A segmented control whose active pill smoothly slides between options using
- * Framer Motion's shared layout animation.
- */
 export function Segmented({ options, value, onChange, idKey }: SegmentedProps) {
   const auto = useId()
   const layoutId = `seg-${idKey ?? auto}`
