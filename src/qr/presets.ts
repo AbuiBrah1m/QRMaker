@@ -5,7 +5,6 @@ import type {
   LogoShape,
 } from './qrEngine'
 
-/** Quick-pick color swatch presets shown in the color panel. */
 export interface ColorPreset {
   name: string
   primary: string
@@ -23,7 +22,6 @@ export const COLOR_PRESETS: ColorPreset[] = [
   { name: 'Mono', primary: '#000000', secondary: '#000000' },
 ]
 
-/** Solid foreground swatches. */
 export const SOLID_SWATCHES: string[] = [
   '#000000',
   '#1f2937',
