@@ -41,7 +41,6 @@ function Swatch({
   )
 }
 
-/** Color-mode switcher with mode-specific controls (solid / two / rainbow). */
 export function ColorModePanel({ cfg, onChange }: ColorModePanelProps) {
   return (
     <div className="flex flex-col gap-4">
