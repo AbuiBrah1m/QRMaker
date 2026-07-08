@@ -2,13 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
- * Design system
- * -------------
- * Every themeable color is stored as a space-separated RGB triple in a CSS
- * variable so Tailwind's `rgb(var(--x) / <alpha-value>)` colors work and the
- * whole palette can be swapped between light and dark at runtime.
- */
 :root {
   --surface: 244 245 250;
   --surface-2: 255 255 255;
@@ -52,7 +45,6 @@ body {
   user-select: none;
 }
 
-/* Electron custom-chrome drag regions */
 .drag {
   -webkit-app-region: drag;
 }
@@ -60,7 +52,6 @@ body {
   -webkit-app-region: no-drag;
 }
 
-/* Frosted-glass surface used by cards and the title bar */
 .glass {
   background: linear-gradient(
     135deg,
@@ -72,7 +63,6 @@ body {
   border: 1px solid rgb(var(--border) / 0.7);
 }
 
-/* Animated ambient background blobs */
 .app-bg {
   position: relative;
   isolation: isolate;
@@ -102,7 +92,6 @@ body {
   background: radial-gradient(circle at center, rgb(var(--accent-2)), transparent 65%);
 }
 
-/* Gradient text helper */
 .text-gradient {
   background: linear-gradient(120deg, rgb(var(--accent)), rgb(var(--accent-2)));
   -webkit-background-clip: text;
@@ -110,7 +99,6 @@ body {
   color: transparent;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -129,7 +117,6 @@ body {
   background-clip: content-box;
 }
 
-/* Native color input reset so our custom swatches look clean */
 input[type='color'] {
   -webkit-appearance: none;
   appearance: none;
@@ -146,7 +133,6 @@ input[type='color']::-webkit-color-swatch {
   border-radius: 10px;
 }
 
-/* Range slider styling */
 input[type='range'] {
   -webkit-appearance: none;
   appearance: none;
