@@ -2,7 +2,6 @@ import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { LogoMark } from './LogoMark'
 
-/** Animated boot splash: logo springs in, then the whole screen fades away. */
 export function Splash({ onDone }: { onDone: () => void }) {
   useEffect(() => {
     const timer = setTimeout(onDone, 1900)
