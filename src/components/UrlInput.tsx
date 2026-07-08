@@ -7,10 +7,6 @@ interface UrlInputProps {
   onChange: (value: string) => void
 }
 
-/**
- * Validated URL field. Shows an animated green check when valid and a red
- * shake plus helper text when the input is present but invalid.
- */
 export function UrlInput({ value, valid, touched, onChange }: UrlInputProps) {
   const hasText = value.trim().length > 0
   const showInvalid = touched && hasText && !valid
