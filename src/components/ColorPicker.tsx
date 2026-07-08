@@ -4,7 +4,6 @@ interface ColorPickerProps {
   onChange: (value: string) => void
 }
 
-/** A labelled native color swatch paired with an editable hex field. */
 export function ColorPicker({ label, value, onChange }: ColorPickerProps) {
   return (
     <div className="flex items-center gap-3 rounded-xl border border-border bg-surface-2/50 px-3 py-2">
