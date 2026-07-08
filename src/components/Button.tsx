@@ -6,7 +6,6 @@ interface ButtonProps extends HTMLMotionProps<'button'> {
   variant?: 'primary' | 'ghost'
 }
 
-/** Gradient / ghost button with spring hover + press micro-interactions. */
 export function Button({
   children,
   variant = 'primary',
