@@ -31,10 +31,6 @@ const ACCENTS: Record<ToastType, string> = {
   info: 'from-sky-400 to-blue-500',
 }
 
-/**
- * Global animated toast system. Call `useToast()` to get a `push` function.
- * Toasts auto-dismiss and animate in/out with a spring via Framer Motion.
- */
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([])
 
