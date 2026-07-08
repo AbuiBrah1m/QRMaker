@@ -14,14 +14,12 @@ interface LogoPickerProps {
   onShape: (value: LogoShape) => void
 }
 
-/** Maps the chosen logo shape onto the thumbnail's corner radius. */
 const SHAPE_THUMB_CLASS: Record<LogoShape, string> = {
   square: 'rounded-md',
   rounded: 'rounded-2xl',
   circle: 'rounded-full',
 }
 
-/** Native logo picker with a live thumbnail, shape selector and size slider. */
 export function LogoPicker({
   logo,
   logoSize,
