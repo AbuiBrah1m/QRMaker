@@ -52,7 +52,6 @@ function WindowControl({
   )
 }
 
-/** Frameless custom title bar: brand, theme toggle and window controls. */
 export function TitleBar() {
   const { theme, toggle } = useTheme()
   const [maximized, setMaximized] = useState(false)
